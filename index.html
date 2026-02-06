@@ -68,8 +68,8 @@ button {
 
 <body>
 
-<!-- Romantic Music -->
-<audio autoplay loop>
+<!-- Background Music (plays only after YES click – mobile safe) -->
+<audio id="bgMusic" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
@@ -85,6 +85,7 @@ button {
 <script>
 const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
+const music = document.getElementById("bgMusic");
 
 let noCount = 0;
 const noTexts = [
@@ -95,6 +96,7 @@ const noTexts = [
   "Okay okay 😭"
 ];
 
+// No button interaction
 noBtn.addEventListener("click", () => {
   noCount++;
 
@@ -106,7 +108,10 @@ noBtn.addEventListener("click", () => {
   yesBtn.style.transform = `scale(${1 + noCount * 0.2})`;
 });
 
+// Yes button interaction (music starts here)
 yesBtn.addEventListener("click", () => {
+  music.play().catch(() => {});
+
   document.body.innerHTML = `
     <div class="container">
       <h1>YAYYY babby 🥰💖</h1>
@@ -118,7 +123,7 @@ yesBtn.addEventListener("click", () => {
   `;
 });
 
-// Floating hearts
+// Floating hearts animation
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
